@@ -62,4 +62,3 @@ for i in movies:
 data = []
 df = pd.DataFrame({'Title' : titles, 'Year' : release_years, 'Runtime': runtimes, 'Genres':genres,'Description':descriptions,'Metascore':metascores, 'Rating': ratings, 'Votes': votes})
 df.to_csv(OutputFolder + '/movies.csv')
-df.to_xlsx(OutputFolder + '/excel.xlsx')
