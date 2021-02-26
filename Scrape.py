@@ -1,4 +1,3 @@
-import urllib
 import requests
 from bs4 import BeautifulSoup
 import pandas as pd
@@ -59,6 +58,6 @@ for i in movies:
     urls.append(url)
 
 
-data = []
 df = pd.DataFrame({'Title' : titles, 'Year' : release_years, 'Runtime': runtimes, 'Genres':genres,'Description':descriptions,'Metascore':metascores, 'Rating': ratings, 'Votes': votes})
 df.to_csv(OutputFolder + '/movies.csv')
+
