@@ -1,7 +1,7 @@
 import requests
 from bs4 import BeautifulSoup
 import pandas as pd
-
+import urllib
 
 OutputFolder = 'Output'
 headers = {'Accept-Language': 'en-US, en;q=0.5'}
@@ -19,11 +19,9 @@ genres = []
 votes = []
 descriptions = []
 
-urls = []
 
 for i in movies:
     content = i.find('div', class_='lister-item-content')
-    image = i.find('div', class_='lister-item-image')
 
     title = content.h3.a.text
     titles.append(title)
@@ -54,9 +52,9 @@ for i in movies:
     genre = content.find('span', class_='genre').text.rstrip().replace('\n', "") if content.find('span', class_='genre') != None else "-"  
     genres.append(genre)
 
-    url = image.a.img['src'] if image != None else '-'
-    urls.append(url)
-
+    # SAVE IMAGE
+    url = i.find('img').get('loadlate')
+    urllib.request.urlretrieve(url, OutputFolder + '/image' + str(movies.index(i)+1) + '.jpg')
 
 df = pd.DataFrame({'Title' : titles, 'Year' : release_years, 'Runtime': runtimes, 'Genres':genres,'Description':descriptions,'Metascore':metascores, 'Rating': ratings, 'Votes': votes})
 df.to_csv(OutputFolder + '/movies.csv')
